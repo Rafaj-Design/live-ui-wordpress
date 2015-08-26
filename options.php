@@ -1,7 +1,7 @@
 <div>
 	<h2><?php __('LiveUI Options', 'liveui') ?></h2>
 	
-	<form method="post" action="options.php">
+	<form method="post" action="">
 		<h3 class="title"><?php __('Settings', 'liveui') ?></h3>
 		<p><?php __('LIVEUI_SETTINGS_INFO_MESSAGE', 'liveui') ?></p>
 		<?php wp_nonce_field('update-options'); ?>
@@ -34,9 +34,9 @@
 		</p>
 	</form>
 	
-	<form method="post" action="options.php">
+	<form method="post" action="">
 		<h3 class="title"><?php __('Actions', 'liveui') ?></h3>
-		<?php wp_nonce_field('update-options'); ?>
+		<?php wp_nonce_field('other-options'); ?>
 		<p><?php __('LIVEUI_RELOAD_CACHE_INFO_MESSAGE', 'liveui') ?></p>
 		<p>
 			<input type="submit" name="reload" value="<?php __('Reload LiveUI cache', 'liveui') ?>" />

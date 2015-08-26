@@ -22,20 +22,12 @@ require_once(LIVEUI_PLUGIN_DIR.'class.liveui.php');
 
 // Translations
 
-add_action('init', 'LUI');
-
-function LUI($key) {
-	return $key;
-	
-	if (get_option('liveui_debugging')) {
-		
-	}
+function LUI($key, $locale='en') {
+	return liveui::translation_for_key($key, $locale);
 }
 
 
 // Colors
-
-add_action('init', 'LUIColor');
 
 function LUIColor($key) {
 	return $key;
@@ -47,8 +39,6 @@ function LUIColor($key) {
 
 
 // Images
-
-add_action('init', 'LUIImage');
 
 function LUIImage($key) {
 	return $key;
@@ -88,14 +78,16 @@ function liveui_install() {
 	$charset_collate = $wpdb->get_charset_collate();
 	
 	// Missing translations
-	$table_name = $wpdb->prefix."liveui_missing_translations"; 
+	$table_name = $wpdb->prefix.'liveui_missing_translations';
 	$sql = "CREATE TABLE IF NOT EXISTS `$table_name` (
 	  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
 	  `key` varchar(255) NOT NULL,
+	  `table` varchar(255) NOT NULL,
 	  `added` datetime NOT NULL,
-	  `lang_code` varchar(5) NOT NULL,
+	  `lang_code` varchar(5) NOT NULL,,
+	  `reported` tinyint(1) NOT NULL DEFAULT '0',
 	  PRIMARY KEY (`id`),
-	  KEY `key` (`key`,`lang_code`)
+	  KEY `key` (`key`,`lang_code`, `reported`)
 	) ENGINE=InnoDB $charset_collate;";
 	
 	dbDelta($sql);
@@ -109,9 +101,13 @@ function liveui_remove() {
 	delete_option('liveui_debugging');
 	delete_option('liveui_debugging_text_with_underscores');
 	
+	delete_transient('liveui_data_cache_translations');
+	delete_transient('liveui_data_cache_images');
+	delete_transient('liveui_data_cache_colors');
+	
 	// Drop missing translations table
-	$table_name = $wpdb->prefix . "liveui_missing_translations";
-	$wpdb->query("DROP TABLE {$table_name}");
+	$table_name = $wpdb->prefix.'liveui_missing_translations';
+	$wpdb->query("DROP TABLE {$table_name};");
 }
 
 
@@ -119,6 +115,20 @@ function liveui_remove() {
 
 if (is_admin()) {
 	
+	// Initialization
+	
+	add_action('init', 'check_actions');
+	
+	function check_actions() {
+	    if (isset($_POST['reload'])) {
+	        liveui::update_data();
+	    }
+	    if (isset($_POST['report'])) {
+	        liveui::report_missing_translations();
+	    }
+	    
+	}
+
 	// Updating data
 	
 	add_action('update_data', 'update_data');
@@ -159,8 +169,8 @@ if (is_admin()) {
 		
 		add_option('liveui_translations', array('en' => array('test' => 'this is my test :)')));
 		
-		$table_name = $wpdb->prefix . "liveui_missing_translations";
-		$missingTranslationsCount = $wpdb->get_var("SELECT COUNT(*) FROM {$table_name};");
+		$table_name = $wpdb->prefix."liveui_missing_translations";
+		$missingTranslationsCount = $wpdb->get_var("SELECT COUNT(*) FROM {$table_name} WHERE `reported` = 0;");
 		
 		include(LIVEUI_PLUGIN_DIR.'options.php');
 	}
