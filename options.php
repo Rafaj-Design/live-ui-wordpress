@@ -39,12 +39,12 @@
 		<?php wp_nonce_field('update-options'); ?>
 		<p><?php __('LIVEUI_RELOAD_CACHE_INFO_MESSAGE', 'liveui') ?></p>
 		<p>
-			<input type="submit" value="<?php __('Reload cache', 'liveui') ?>" />
+			<input type="submit" name="reload" value="<?php __('Reload LiveUI cache', 'liveui') ?>" />
 		</p>
 		<p><?php __('LIVEUI_REPORT_MISSING_TRANSLATION_INFO_MESSAGE', 'liveui') ?></p>
 		<p><?php __('LIVEUI_MISSING_TRANSLATIONS_COUNT', 'liveui') ?>: <?php echo $missingTranslationsCount; ?></p>
 		<p>
-			<input type="submit" value="<?php __('Report missing translations', 'liveui') ?>"<?php //echo ($missingTranslationsCount > 1) ? '' : ' disabled="disabled"'; ?> />
+			<input type="submit" name="report" value="<?php __('Report missing translations', 'liveui') ?>"<?php //echo ($missingTranslationsCount > 1) ? '' : ' disabled="disabled"'; ?> />
 		</p>
 	
 	</form>

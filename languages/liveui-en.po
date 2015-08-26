@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: LiveUI\n"
 "POT-Creation-Date: 2015-08-26 10:26+0100\n"
-"PO-Revision-Date: 2015-08-26 10:45+0100\n"
+"PO-Revision-Date: 2015-08-26 11:30+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -38,6 +38,7 @@ msgstr "LiveUI Options"
 msgid "Settings"
 msgstr "Settings"
 
+# needs to be translated
 #: options.php:6
 msgid "LIVEUI_SETTINGS_INFO_MESSAGE"
 msgstr "LIVEUI_SETTINGS_INFO_MESSAGE"

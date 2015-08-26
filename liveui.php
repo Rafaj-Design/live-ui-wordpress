@@ -17,6 +17,9 @@ define('LIVEUI_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('LIVEUI_PLUGIN_DIR', plugin_dir_path(__FILE__));
 
 
+require_once(LIVEUI_PLUGIN_DIR.'class.liveui.php');
+
+
 // Translations
 
 add_action('init', 'LUI');
@@ -66,7 +69,7 @@ function liveui_install() {
 	global $wpdb;
 	
 	// Check environment
-	if ( version_compare( $GLOBALS['wp_version'], LIVEUI_MINIMUM_WP_VERSION, '<' ) ) {
+	if ( version_compare($GLOBALS['wp_version'], LIVEUI_MINIMUM_WP_VERSION, '<' ) ) {
 		load_plugin_textdomain('liveui');
 		
 		$message = '<strong>'.sprintf(esc_html__( 'LiveUI %s requires WordPress %s or higher.' , 'liveui'), LIVEUI_VERSION, LIVEUI_MINIMUM_WP_VERSION ).'</strong> '.sprintf(__('Please <a href="%1$s">upgrade WordPress</a> to a current version.', 'liveui'), 'https://codex.wordpress.org/Upgrading_WordPress');
@@ -115,6 +118,15 @@ function liveui_remove() {
 // Admin
 
 if (is_admin()) {
+	
+	// Updating data
+	
+	add_action('update_data', 'update_data');
+	
+	function update_data() {
+		// Updating remote values
+		liveui::update_data();
+	}
 	
 	// Translations
 	
