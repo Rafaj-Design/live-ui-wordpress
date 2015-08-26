@@ -26,12 +26,6 @@ class liveui {
 	
 	// Public interface
 	
-	public static function load_translations() {
-		self::$translations = get_option('liveui_translations');
-		self::$images = get_option('liveui_images');
-		self::$colors = get_option('liveui_colors');
-	}
-	
 	public static function get_available_locales() {
 		self::init_translations();
 		if (is_array(self::$translations) && !empty(self::$translations)) {
@@ -58,14 +52,14 @@ class liveui {
 		if ($images) {
 			$images = json_decode($images, true);
 			if (isset($images['data'])) {
-				self::save_cache('images', $images);
+				self::save_cache('images', $images['data']);
 			}
 		}
 		$colors = self::get_api('visuals/colors', $apiKey, $build);
 		if ($colors) {
 			$colors = json_decode($colors, true);
 			if (isset($colors['data'])) {
-				self::save_cache('colors', $colors);
+				self::save_cache('colors', $colors['data']);
 			}
 		}
 	}
@@ -133,6 +127,10 @@ class liveui {
 	
 	public static function color_for_key($key) {
 		self::init_colors();
+		if (isset(self::$colors[$key])) {
+			return self::$colors[$key];
+		}
+		else return false;
 	}
 	
 	public static function get_api($path, $apiKey, $build=0, $postData=null) {

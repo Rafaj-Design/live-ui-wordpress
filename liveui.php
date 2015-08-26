@@ -27,25 +27,29 @@ function LUI($key, $locale='en') {
 }
 
 
-// Colors
-
-function LUIColor($key) {
-	return $key;
-	
-	if (get_option('liveui_debugging')) {
-		
-	}
-}
-
-
 // Images
 
 function LUIImage($key) {
-	return $key;
-	
-	if (get_option('liveui_debugging')) {
-		
+	return liveui::image_for_key($key);
+}
+
+
+// Colors
+
+function LUIColor($key) {
+	$color = liveui::color_for_key($key);
+	if ($color) {
+		return $color['value'];
 	}
+	else return '000000';
+}
+
+function LUIColorAlpha($key) {
+	$color = liveui::color_for_key($key);
+	if ($color) {
+		return (int)$color['alpha'];
+	}
+	else return 100;
 }
 
 
