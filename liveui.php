@@ -26,11 +26,10 @@ function LUI($key, $locale='en') {
 	return liveui::translation_for_key($key, $locale);
 }
 
-
 // Images
 
-function LUIImage($key) {
-	return liveui::image_for_key($key);
+function LUIImage($key, $locale='en') {
+	return liveui::image_url_for_key($key, $locale);
 }
 
 
@@ -76,7 +75,8 @@ function liveui_install() {
 	// Setup default values
 	add_option("liveui_translation_api_key", '', '', 'yes');
 	add_option("liveui_translation_api_key_works", '0', '', 'yes');
-	add_option("liveui_image_temp_folder", 'wp-content/temp/', '', 'yes');
+	add_option("liveui_image_temp_folder", 'wp-content/images/', '', 'yes');
+	add_option("liveui_data_cache_expiry_time", '180', '', 'yes');
 	add_option("liveui_debugging", '0', '', 'yes');
 	add_option("liveui_debugging_text_with_underscores", '0', '', 'yes');
 	
@@ -106,6 +106,7 @@ function liveui_remove() {
 	delete_option('liveui_translation_api_key');
 	delete_option('liveui_translation_api_key_works');
 	delete_option('liveui_image_temp_folder');
+	delete_option('liveui_data_cache_expiry_time');
 	delete_option('liveui_debugging');
 	delete_option('liveui_debugging_text_with_underscores');
 	
@@ -128,6 +129,19 @@ if (is_admin()) {
 	add_action('init', 'check_actions');
 	
 	function check_actions() {
+		if (isset($_POST['liveui_data_cache_expiry_time'])) {
+			$exp = (int)$_POST['liveui_data_cache_expiry_time'];
+			if ($exp < 5) {
+				$exp = 5;
+			}
+			$_POST['liveui_data_cache_expiry_time'] = $exp;
+		}
+		if (isset($_POST['liveui_image_temp_folder'])) {
+			$url = trim($_POST['liveui_image_temp_folder'], '/');
+			$url .= '/';
+			$_POST['liveui_image_temp_folder'] = $url;
+		}
+		
 	    if (isset($_POST['reload'])) {
 	        liveui::update_data();
 	        wp_redirect('?page=liveui&done=reload');
@@ -162,6 +176,7 @@ if (is_admin()) {
 	function register_my_setting() {
 		register_setting('liveui_settings', 'liveui_translation_api_key'); 
 		register_setting('liveui_settings', 'liveui_image_temp_folder'); 
+		register_setting('liveui_settings', 'liveui_data_cache_expiry_time', 'intval'); 
 		register_setting('liveui_settings', 'liveui_debugging', 'intval'); 
 		register_setting('liveui_settings', 'liveui_debugging_text_with_underscores', 'intval'); 
 	} 
@@ -181,6 +196,7 @@ if (is_admin()) {
 		
 		$table_name = $wpdb->prefix."liveui_missing_translations";
 		$missingTranslationsCount = $wpdb->get_var("SELECT COUNT(id) FROM {$table_name} WHERE `reported` = 0;");
+		$reportedMissingTranslationsCount = $wpdb->get_var("SELECT COUNT(id) FROM {$table_name} WHERE `reported` = 1;");
 		
 		$tempImageFolderWritable = (bool)is_writable(ABSPATH.get_option('liveui_image_temp_folder'));
 		

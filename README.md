@@ -15,7 +15,7 @@ All keys below are used without the hash symbol (so #MY_IMAGE in teh admin panel
 To return a translated string you can use method LUI(key, locale), method returns a string with the translation or the key if translation is missing 
 Example:  
 ```php
-$headerTitle = LUI('MyWebHeader', 'en_US');
+<h1><?php echo LUI('MyWebHeader', 'en_US'); ?></h1>
 ```
 
 To get available locales in an array ( ```{ 'en_US', 'it', 'de' }``` )
@@ -25,13 +25,21 @@ liveui::get_available_locales();
 
 ## Images
 
-To get an image URL, you can call ```LUIImage(key)```. This method returns a local link to the file.
+To get an image URL, you can call ```LUIImage(key, locale)```. This method returns a local link to the file.
 If the file is not present in the local cache, it will be downloaded from the LiveUI system and cached locally so
-the local server is responsible for the distribution.
+the local server is responsible for the distribution.  
+Example:  
+```php
+<img src="<?php echo LUIImage('MyLogoImage', 'it'); ?> alt="Company Logo (Italian)" />
+```
 
 ## Colors
 
 To get a color you can use ```LUIColor(key)``` method. This will return the color HEX representation (Ex. FF0000). The value will be returned without the hash (#) character.  
+Example:  
+```php
+<span style="color: #<?php echo LUIColor('MyHeaderColor'); ?>;">My text with remotely controlled color</span>
+```  
 
 Some colors can be set to use an alpha value, in that case you can check for ```LUIColorAlpha(key)``` which returns a value between 0-100 which represent teh opacity. For example value 80 means the color should be displayed with 80% opacity.
 

@@ -52,7 +52,13 @@ class liveui {
 		if ($images) {
 			$images = json_decode($images, true);
 			if (isset($images['data'])) {
-				self::save_cache('images', $images['data']);
+				$arr = array();
+				foreach ($images['data'] as $img) {
+					if (isset($img['key'])) {
+						$arr[$img['key']] = $img;
+					}
+				}
+				self::save_cache('images', $arr);
 			}
 		}
 		$colors = self::get_api('visuals/colors', $apiKey, $build);
@@ -121,8 +127,55 @@ class liveui {
 		return $key;
 	}
 	
-	public static function image_for_key($key, $locale) {
+	private static function get_image_url($path, $img) {
+		$exists = file_exists(ABSPATH.$path);
+		if (!$exists) {
+			$data = self::get_image('image/get/'.$img['file'], get_option('liveui_translation_api_key'));
+			if (!empty($data)) {
+				if (!file_put_contents(ABSPATH.$path, $data)) {
+					return false;
+				}
+			}
+			else {
+				return false;
+			}
+		}
+		return get_site_url().'/'.$path;
+	}
+	
+	public static function image_url_for_key($key, $locale) {
 		self::init_images();
+		
+		if (isset(self::$images[$key])) {
+			$extension = '';
+			
+			$path = false;
+			$hash = false;
+			$exists = false;
+			
+			$img = self::$images[$key];
+			if ($img['single']) {
+				if (isset($img['image']['hash'])) {
+					$hash = $img['image']['hash'];
+					$path = get_option('liveui_image_temp_folder').$hash.$extension;
+					$url = self::get_image_url($path, $img['image']);
+					if ($url) {
+						return $url;
+					}
+				}
+			}
+			else {
+				if (isset($img['images'][$locale]['hash'])) {
+					$hash = $img['images'][$locale]['hash'];
+					$path = get_option('liveui_image_temp_folder').$hash.$extension;
+					$url = self::get_image_url($path, $img['images'][$locale]);
+					if ($url) {
+						return $url;
+					}
+				}
+			}
+		}
+		return '#?error=missing_liveui_image&key='.htmlspecialchars($key);
 	}
 	
 	public static function color_for_key($key) {
@@ -195,7 +248,11 @@ class liveui {
 	
 	private function save_cache($file, $data) {
 		self::$$file = null;
-		return set_transient('liveui_data_cache_'.$file, $data, (60 * 60)); // Set cache for one hour
+		$minutes = (int)get_option('liveui_data_cache_expiry_time');
+		if ($minutes < 5) {
+			$minutes = 5;
+		}
+		return set_transient('liveui_data_cache_'.$file, $data, (60 * $minutes));
 	}
 	
 	private static function get_cache($file) {
