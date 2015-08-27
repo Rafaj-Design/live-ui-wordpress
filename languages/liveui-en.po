@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: LiveUI\n"
-"POT-Creation-Date: 2015-08-26 10:26+0100\n"
-"PO-Revision-Date: 2015-08-26 11:30+0100\n"
+"POT-Creation-Date: 2015-08-27 11:05+0100\n"
+"PO-Revision-Date: 2015-08-27 11:27+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.4\n"
-"X-Poedit-Basepath: .\n"
+"X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: liveui.php\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -20,12 +20,12 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: liveui.php:72
+#: liveui.php:71
 #, php-format
 msgid "LiveUI %s requires WordPress %s or higher."
 msgstr "LiveUI %s requires WordPress %s or higher."
 
-#: liveui.php:72
+#: liveui.php:71
 #, php-format
 msgid "Please <a href=\"%1$s\">upgrade WordPress</a> to a current version."
 msgstr "Please <a href=“%1$s”>upgrade WordPress</a> to a current version."
@@ -48,38 +48,50 @@ msgid "LiveUI Translation API key"
 msgstr "LiveUI Translation API key"
 
 #: options.php:18
+msgid "Temp folder for images"
+msgstr "Temp folder for images"
+
+#: options.php:21
+msgid "Folder is writable"
+msgstr "Folder is writable"
+
+#: options.php:21
+msgid "Folder is NOT writable or doesn't exist."
+msgstr "Folder is NOT writable or doesn't exist."
+
+#: options.php:25
 msgid "Debugging"
 msgstr "Debugging"
 
-#: options.php:24
+#: options.php:31
 msgid "Replace translated text with underscores"
 msgstr "Replace translated text with underscores"
 
-#: options.php:33
+#: options.php:40
 msgid "Save Changes"
 msgstr "Save Changes"
 
-#: options.php:38
+#: options.php:45
 msgid "Actions"
 msgstr "Actions"
 
-#: options.php:40
+#: options.php:47
 msgid "LIVEUI_RELOAD_CACHE_INFO_MESSAGE"
 msgstr "LIVEUI_RELOAD_CACHE_INFO_MESSAGE"
 
-#: options.php:42
-msgid "Reload cache"
-msgstr "Reload cache"
+#: options.php:49
+msgid "Reload LiveUI cache"
+msgstr "Reload LiveUI cache"
 
-#: options.php:44
+#: options.php:51
 msgid "LIVEUI_REPORT_MISSING_TRANSLATION_INFO_MESSAGE"
 msgstr "LIVEUI_REPORT_MISSING_TRANSLATION_INFO_MESSAGE"
 
-#: options.php:45
+#: options.php:52
 msgid "LIVEUI_MISSING_TRANSLATIONS_COUNT"
 msgstr "Number of missing translations"
 
-#: options.php:47
+#: options.php:54
 msgid "Report missing translations"
 msgstr "Report missing translations"
 
@@ -99,3 +111,6 @@ msgstr "LiveUI plugin for www.liveui.io"
 #. Author URI of the plugin/theme
 msgid "http://www.liveui.io"
 msgstr "http://www.liveui.io"
+
+#~ msgid "Reload cache"
+#~ msgstr "Reload cache"
