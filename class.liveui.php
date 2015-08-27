@@ -68,6 +68,18 @@ class liveui {
 				self::save_cache('colors', $colors['data']);
 			}
 		}
+		
+		update_option('liveui_data_cache_last_refresh', time());
+	}
+	
+	public static function remove_image_cache() {
+		$folder = ABSPATH.get_option('liveui_image_temp_folder');
+		$files = scandir($folder);
+		if (!empty($files)) foreach ($files as $file) {
+			if ($file != '.' && $file != '..') {
+				unlink($folder.$file);
+			}
+		}
 	}
 	
 	public static function report_missing_translations() {

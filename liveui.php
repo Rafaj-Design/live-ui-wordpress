@@ -77,6 +77,7 @@ function liveui_install() {
 	add_option("liveui_translation_api_key_works", '0', '', 'yes');
 	add_option("liveui_image_temp_folder", 'wp-content/images/', '', 'yes');
 	add_option("liveui_data_cache_expiry_time", '180', '', 'yes');
+	add_option("liveui_data_cache_last_refresh", false, '', 'yes');
 	add_option("liveui_debugging", '0', '', 'yes');
 	add_option("liveui_debugging_text_with_underscores", '0', '', 'yes');
 	
@@ -107,6 +108,7 @@ function liveui_remove() {
 	delete_option('liveui_translation_api_key_works');
 	delete_option('liveui_image_temp_folder');
 	delete_option('liveui_data_cache_expiry_time');
+	delete_option('liveui_data_cache_last_refresh');
 	delete_option('liveui_debugging');
 	delete_option('liveui_debugging_text_with_underscores');
 	
@@ -146,7 +148,11 @@ if (is_admin()) {
 	        liveui::update_data();
 	        wp_redirect('?page=liveui&done=reload');
 	    }
-	    if (isset($_POST['report'])) {
+	    else if (isset($_POST['remove'])) {
+	        liveui::remove_image_cache();
+	        wp_redirect('?page=liveui&done=remove');
+	    }
+	    else if (isset($_POST['report'])) {
 	        liveui::report_missing_translations();
 	        wp_redirect('?page=liveui&done=report');
 	    }

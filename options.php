@@ -1,8 +1,10 @@
-<div>
+<div style="float:left;width:30%;min-width:400px;margin-right:40px;">
 	<h2><?php _e('LiveUI Options', 'liveui') ?></h2>
-	
+	<hr />
+	<hr />
 	<form method="post" action="options.php">
 		<h3 class="title"><?php _e('Settings', 'liveui') ?></h3>
+		<hr />
 		<p><?php _e('LIVEUI_SETTINGS_INFO_MESSAGE', 'liveui') ?></p>
 		<?php wp_nonce_field('update-options'); ?>
 		<?php settings_fields('liveui_settings'); ?>
@@ -49,20 +51,48 @@
 		</p>
 	</form>
 	<hr />
+	<hr />
 	<form method="post" action="">
 		<h3 class="title"><?php _e('Actions', 'liveui') ?></h3>
+		<hr />
 		<?php wp_nonce_field('other-options'); ?>
 		<p><?php _e('LIVEUI_RELOAD_CACHE_INFO_MESSAGE', 'liveui') ?></p>
+		<?php
+		$lastUpdate = (int)get_option('liveui_data_cache_last_refresh');
+		if ($lastUpdate == 0) {
+			$lastUpdate = __('Never');
+		}
+		else {
+			$lastUpdate = date(get_option('date_format').', '.get_option('time_format'), $lastUpdate);
+		}
+		?>
+		<p><?php _e('Last data update', 'liveui') ?>: &nbsp;<?php echo $lastUpdate; ?></p>
 		<p>
 			<input type="submit" name="reload" value="<?php _e('Reload LiveUI cache', 'liveui') ?>" />
 		</p>
 		<hr />
+		<p><?php _e('LIVEUI_RELOAD_IMAGE_CACHE_INFO_MESSAGE', 'liveui') ?></p>
+		<p>
+			<input type="submit" name="remove" value="<?php _e('Clean LiveUI image cache', 'liveui') ?>" />
+		</p>
+		<hr />
 		<p><?php _e('LIVEUI_REPORT_MISSING_TRANSLATION_INFO_MESSAGE', 'liveui') ?></p>
-		<p><?php _e('LIVEUI_MISSING_TRANSLATIONS_COUNT', 'liveui') ?>: <strong><?php echo $missingTranslationsCount; ?></strong></p>
-		<p><?php _e('LIVEUI_REPORTED_MISSING_TRANSLATIONS_COUNT', 'liveui') ?>: <strong><?php echo $reportedMissingTranslationsCount; ?></strong></p>
+		<p><?php _e('Currently missing translations', 'liveui') ?>: <strong>&nbsp;<?php echo $missingTranslationsCount; ?>&nbsp;</strong></p>
+		<p><?php _e('Reported missing translations', 'liveui') ?>: <span style="text-decoration:line-through;">&nbsp;<?php echo $reportedMissingTranslationsCount; ?>&nbsp;</span></p>
 		<p>
 			<input type="submit" name="report" value="<?php _e('Report missing translations', 'liveui') ?>"<?php //echo ($missingTranslationsCount > 1) ? '' : ' disabled="disabled"'; ?> />
 		</p>
 		<hr />
+		<hr />
 	</form>
+</div>
+<div class="description" style="width:60%;min-width:400px;">
+	<h3><?php _e('LIVEUI_USAGE_TITLE', 'liveui') ?></h3>
+	<p>&nbsp;</p>
+	<?php
+	$file = LIVEUI_PLUGIN_DIR.'README.md';
+	$file = file_get_contents($file);
+	$file = nl2br($file);
+	echo $file;
+	?>
 </div>
