@@ -14,7 +14,7 @@ All keys below are used without the hash symbol (so #MY_IMAGE in teh admin panel
 
 To return a translated string you can use method LUI(key, locale), method returns a string with the translation or the key if translation is missing 
 Example:  
-```
+```html
 <h1><?php echo LUI('MyWebHeader', 'en_US'); ?></h1>
 ```
 
@@ -29,7 +29,7 @@ To get an image URL, you can call ```LUIImage(key, locale)```. This method retur
 If the file is not present in the local cache, it will be downloaded from the LiveUI system and cached locally so
 the local server is responsible for the distribution.  
 Example:  
-```
+```html
 <img src="<?php echo LUIImage('MyLogoImage', 'it'); ?> alt="Company Logo (Italian)" />
 ```
 
@@ -37,7 +37,7 @@ Example:
 
 To get a color you can use ```LUIColor(key)``` method. This will return the color HEX representation (Ex. FF0000). The value will be returned without the hash (#) character.  
 Example:  
-```
+```html
 <span style="color: #<?php echo LUIColor('MyHeaderColor'); ?>;">My text with remotely controlled color</span>
 ```  
 
