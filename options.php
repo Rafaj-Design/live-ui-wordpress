@@ -1,4 +1,4 @@
-<div style="float:left;width:30%;min-width:400px;margin-right:40px;">
+<div style="float:left;width:55%;min-width:400px;margin-right:40px;">
 	<h2><?php _e('LiveUI Options', 'liveui') ?></h2>
 	<hr />
 	<hr />
@@ -47,11 +47,11 @@
 		</table>
 		<input type="hidden" name="action" value="update" />
 		<p>
-			<input type="submit" value="<?php _e('Save Changes', 'liveui') ?>" />
+			<input type="submit" class="button button-primary" value="<?php _e('Save Changes', 'liveui') ?>" />
 		</p>
 	</form>
-	<hr />
-	<hr />
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
 	<form method="post" action="">
 		<h3 class="title"><?php _e('Actions', 'liveui') ?></h3>
 		<hr />
@@ -68,27 +68,26 @@
 		?>
 		<p><?php _e('Last data update', 'liveui') ?>: &nbsp;<?php echo $lastUpdate; ?></p>
 		<p>
-			<input type="submit" name="reload" value="<?php _e('Reload LiveUI cache', 'liveui') ?>" />
+			<input type="submit" name="reload" class="button button-primary" value="<?php _e('Reload LiveUI data cache', 'liveui') ?>" />
 		</p>
 		<hr />
 		<p><?php _e('LIVEUI_RELOAD_IMAGE_CACHE_INFO_MESSAGE', 'liveui') ?></p>
 		<p>
-			<input type="submit" name="remove" value="<?php _e('Clean LiveUI image cache', 'liveui') ?>" />
+			<input type="submit" name="remove" class="button button-primary" value="<?php _e('Clean LiveUI image cache', 'liveui') ?>" />
 		</p>
 		<hr />
 		<p><?php _e('LIVEUI_REPORT_MISSING_TRANSLATION_INFO_MESSAGE', 'liveui') ?></p>
 		<p><?php _e('Currently missing translations', 'liveui') ?>: <strong>&nbsp;<?php echo $missingTranslationsCount; ?>&nbsp;</strong></p>
 		<p><?php _e('Reported missing translations', 'liveui') ?>: <span style="text-decoration:line-through;">&nbsp;<?php echo $reportedMissingTranslationsCount; ?>&nbsp;</span></p>
 		<p>
-			<input type="submit" name="report" value="<?php _e('Report missing translations', 'liveui') ?>"<?php //echo ($missingTranslationsCount > 1) ? '' : ' disabled="disabled"'; ?> />
+			<input type="submit" name="report" class="button button-primary" value="<?php _e('Report missing translations', 'liveui') ?>"<?php //echo ($missingTranslationsCount > 1) ? '' : ' disabled="disabled"'; ?> />
 		</p>
-		<hr />
-		<hr />
 	</form>
 </div>
-<div class="description" style="float:right;width:60%;min-width:400px;max-width:60%;">
-	<h3><?php _e('LIVEUI_USAGE_TITLE', 'liveui') ?></h3>
-	<p>&nbsp;</p>
+<div class="description" style="float:right;width:40%;min-width:400px;max-width:60%;padding-right:22px;">
+	<h2><?php _e('How to use LiveUI for WP', 'liveui') ?></h2>
+	<hr />
+	<hr />
 	<?php
 	$file = LIVEUI_PLUGIN_DIR.'README.md';
 	$file = file_get_contents($file);
@@ -98,10 +97,13 @@
 	$file = trim($file);
 	$file = preg_replace('(<)si', '&lt;', $file);
 	$file = preg_replace('(>)si', '&gt;', $file);
-	$file = nl2br($file);
+	$file = nl2br($file); 
+	$file = preg_replace("/Example(.*?)[\n\r]/ms", '<br /><small><strong>Example:</strong></small>', $file);
+	$file = preg_replace("/##(.*?)[\n\r]/ims", '<h3>\1</h3><hr />', $file);
 	$file = preg_replace('(\`\`\`html)si', '<code style="display:block; padding-left:12px;">', $file);
 	$file = preg_replace('(\`\`\`php)si', '<code style="display:block; padding-left:12px;">', $file);
 	$file = preg_replace('(\`\`\`)si', '<br /></code>', $file);
+	$file = preg_replace('/\`([^<>]*?)\`(?=[^>]*?<)/', '<strong>\1</strong>', $file);
 	echo $file;
 	?>
 </div>

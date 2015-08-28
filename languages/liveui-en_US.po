@@ -1,16 +1,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: LiveUI\n"
-"POT-Creation-Date: 2015-08-27 11:05+0100\n"
-"PO-Revision-Date: 2015-08-28 11:11+0100\n"
+"POT-Creation-Date: 2015-08-28 11:08+0100\n"
+"PO-Revision-Date: 2015-08-28 11:10+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: en\n"
+"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.4\n"
-"X-Poedit-Basepath: ..\n"
+"X-Poedit-Basepath: .\n"
 "X-Poedit-WPHeader: liveui.php\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -20,80 +20,111 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: liveui.php:71
+#: liveui.php:70
 #, php-format
 msgid "LiveUI %s requires WordPress %s or higher."
 msgstr "LiveUI %s requires WordPress %s or higher."
 
-#: liveui.php:71
+#: liveui.php:70
 #, php-format
 msgid "Please <a href=\"%1$s\">upgrade WordPress</a> to a current version."
-msgstr "Please <a href=“%1$s”>upgrade WordPress</a> to a current version."
+msgstr "Please <a href=\"%1$s\">upgrade WordPress</a> to a current version."
 
 #: options.php:2
 msgid "LiveUI Options"
 msgstr "LiveUI Options"
 
-#: options.php:5
+#: options.php:6
 msgid "Settings"
 msgstr "Settings"
 
-# needs to be translated
-#: options.php:6
+#: options.php:8
 msgid "LIVEUI_SETTINGS_INFO_MESSAGE"
-msgstr "LIVEUI_SETTINGS_INFO_MESSAGE - Yo!"
+msgstr "LIVEUI_SETTINGS_INFO_MESSAGE - :)"
 
-#: options.php:12
+#: options.php:14
 msgid "LiveUI Translation API key"
 msgstr "LiveUI Translation API key"
 
-#: options.php:18
+#: options.php:20
 msgid "Temp folder for images"
 msgstr "Temp folder for images"
 
-#: options.php:21
-msgid "Folder is writable"
-msgstr "Folder is writable"
-
-#: options.php:21
+#: options.php:23
 msgid "Folder is NOT writable or doesn't exist."
-msgstr "Folder is NOT writable or doesn't exist."
+msgstr "Folder is NOT writable or doesn’t exist."
 
-#: options.php:25
+#: options.php:27
+msgid "Cache expiry"
+msgstr "Cache expiry"
+
+#: options.php:30
+msgid "in minutes"
+msgstr "in minutes"
+
+#: options.php:34
 msgid "Debugging"
 msgstr "Debugging"
 
-#: options.php:31
+#: options.php:37
+msgid "Enable missing translations reporting"
+msgstr "Enable missing translations reporting"
+
+#: options.php:41
 msgid "Replace translated text with underscores"
 msgstr "Replace translated text with underscores"
 
-#: options.php:40
+#: options.php:50
 msgid "Save Changes"
 msgstr "Save Changes"
 
-#: options.php:45
+#: options.php:56
 msgid "Actions"
 msgstr "Actions"
 
-#: options.php:47
+#: options.php:59
 msgid "LIVEUI_RELOAD_CACHE_INFO_MESSAGE"
 msgstr "LIVEUI_RELOAD_CACHE_INFO_MESSAGE"
 
-#: options.php:49
-msgid "Reload LiveUI cache"
-msgstr "Reload LiveUI cache"
+#: options.php:63
+msgid "Never"
+msgstr "Never"
 
-#: options.php:51
+#: options.php:69
+msgid "Last data update"
+msgstr "Last data update"
+
+#: options.php:71
+msgid "Reload LiveUI data cache"
+msgstr "Reload LiveUI data cache"
+
+#: options.php:74
+msgid "LIVEUI_RELOAD_IMAGE_CACHE_INFO_MESSAGE"
+msgstr "LIVEUI_RELOAD_IMAGE_CACHE_INFO_MESSAGE"
+
+#: options.php:76
+msgid "Clean LiveUI image cache"
+msgstr "Clean LiveUI image cache"
+
+#: options.php:79
 msgid "LIVEUI_REPORT_MISSING_TRANSLATION_INFO_MESSAGE"
 msgstr "LIVEUI_REPORT_MISSING_TRANSLATION_INFO_MESSAGE"
 
-#: options.php:52
-msgid "LIVEUI_MISSING_TRANSLATIONS_COUNT"
-msgstr "Number of missing translations"
+#: options.php:80
+msgid "Currently missing translations"
+msgstr "Currently missing translations"
 
-#: options.php:54
+#: options.php:81
+msgid "Reported missing translations"
+msgstr "Reported missing translations"
+
+#: options.php:83
 msgid "Report missing translations"
 msgstr "Report missing translations"
+
+#: options.php:88
+msgid "How to use LiveUI for WP"
+msgstr "How to use LiveUI for WP"
 
 #. Plugin Name of the plugin/theme
 #. Author of the plugin/theme
@@ -111,6 +142,3 @@ msgstr "LiveUI plugin for www.liveui.io"
 #. Author URI of the plugin/theme
 msgid "http://www.liveui.io"
 msgstr "http://www.liveui.io"
-
-#~ msgid "Reload cache"
-#~ msgstr "Reload cache"
