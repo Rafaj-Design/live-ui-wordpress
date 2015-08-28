@@ -86,13 +86,22 @@
 		<hr />
 	</form>
 </div>
-<div class="description" style="width:60%;min-width:400px;">
+<div class="description" style="float:right;width:60%;min-width:400px;max-width:60%;">
 	<h3><?php _e('LIVEUI_USAGE_TITLE', 'liveui') ?></h3>
 	<p>&nbsp;</p>
 	<?php
 	$file = LIVEUI_PLUGIN_DIR.'README.md';
 	$file = file_get_contents($file);
+	preg_match('#<!-- INFO -->(.+?)<!-- INFOEND -->#ims', $file, $arr);
+	$file = $arr[0];
+	$file = preg_replace('/<!--.*?-->/ms', '', $file);
+	$file = trim($file);
+	$file = preg_replace('(<)si', '&lt;', $file);
+	$file = preg_replace('(>)si', '&gt;', $file);
 	$file = nl2br($file);
+	$file = preg_replace('(\`\`\`html)si', '<code style="display:block; padding-left:12px;">', $file);
+	$file = preg_replace('(\`\`\`php)si', '<code style="display:block; padding-left:12px;">', $file);
+	$file = preg_replace('(\`\`\`)si', '<br /></code>', $file);
 	echo $file;
 	?>
 </div>
