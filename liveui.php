@@ -172,7 +172,7 @@ if (is_admin()) {
 	add_action('plugins_loaded', 'load_liveui_textdomain');
 	
 	function load_liveui_textdomain() {
-		load_plugin_textdomain('liveui', false, LIVEUI_PLUGIN_DIR.'languages/' );
+		load_plugin_textdomain('liveui', false, basename( dirname( __FILE__ ) ) . '/languages' );
 	}
 	
 	// Settings
