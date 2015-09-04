@@ -1,0 +1,7 @@
+{
+    "name": "Ridiculous-Innovations/LiveUI-Wordpress",
+    "description": "Wordpress plugin for Live UI.",
+    "require": {
+        "php": ">=5.3.0"
+    }
+}
